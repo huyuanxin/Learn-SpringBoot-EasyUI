@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.domain.mybatis.mapper.UserMapper">
+
+    <sql id="select">
+		Select * From User
+	</sql>
+
+    <select id="findAll" resultType="com.example.demo.domain.mybatis.entity.User">
+        <include refid="select">
+
+        </include>
+    </select>
+    <select id="getOneByUid" parameterType="int" resultType="com.example.demo.domain.mybatis.entity.User">
+        <include refid="select">
+
+        </include>
+        Where uid = #{uid}
+    </select>
+    <delete id="deleteOneByUid" parameterType="int">
+        Delete From User Where uid= #{uid}
+    </delete>
+
+    <update id="updateUserNameByUid" parameterType="com.example.demo.domain.mybatis.entity.User">
+        Update User u
+        <set>
+            <if test="UserName != null">u.username=#{UserName},</if>
+            <if test="Password != null">u.password=#{Password}</if>
+        </set>
+        Where u.uid=#{uid}
+    </update>
+
+    <insert id="insertNewUser" parameterType="com.example.demo.domain.mybatis.entity.User">
+        insert Into User(username,password) value (
+            <if test="UserName != null">#{UserName},</if>
+            <if test="Password != null">#{Password}</if>
+        )
+    </insert>
+</mapper>
