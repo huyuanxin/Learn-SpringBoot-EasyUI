@@ -1,23 +1,23 @@
 package com.example.demo.domain.mybatis.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
-    private long uid;
+
+    private long Uid;
     private String UserName;
     private String Password;
 
-    public User(String userName, String password){
-            setUserName(userName);
-            setPassword(password);
-    }
-
+    @JsonProperty("Uid")
     public long getUid() {
-        return uid;
+        return Uid;
     }
 
     public void setUid(long uid) {
-        this.uid = uid;
+        this.Uid = uid;
     }
 
+    @JsonProperty("UserName")
     public String getUserName() {
         return UserName;
     }
@@ -26,6 +26,7 @@ public class User {
         UserName = userName;
     }
 
+    @JsonProperty("Password")
     public String getPassword() {
         return Password;
     }
@@ -37,7 +38,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "uid=" + uid +
+                "uid=" + Uid +
                 ", UserName='" + UserName + '\'' +
                 ", Password='" + Password + '\'' +
                 '}';
