@@ -61,6 +61,17 @@ public class UserController {
         user.setUserName(userName);
         user.setPassword(password);
         return userService.insertNewUser(user);
+    }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public int count(
+            @RequestBody List<String> list) {
+        return list.size();
+    }
+
+    @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
+    public List<User> getUserList(
+            @RequestBody List<User> list) {
+        return list;
     }
 }
