@@ -75,4 +75,21 @@ public class UserController {
         return userService.insertNewUser(user);
     }
 
+    @RequestMapping(value = "/insetMultiUser", method = RequestMethod.POST)
+    public int insetMultiUser(
+            @RequestBody List<User> list) {
+        return userService.insertMultiUsers(list);
+    }
+
+    @RequestMapping(value = "/deleteMultiUserByUid", method = RequestMethod.DELETE)
+    public int deleteMultiUserByUid(
+            @RequestBody List<Integer> list) {
+        return userService.deleteMultiUsersByUid(list);
+    }
+
+    @RequestMapping(value = "/updateMultiUser",method = RequestMethod.PUT)
+    public int updateMultiUser(
+            @RequestBody List<User> list){
+        return userService.updateMultiUser(list);
+    }
 }

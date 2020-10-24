@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteOneByUid(uid);
     }
 
-    public int updateUserNameByUid(User user){
-        return  userMapper.updateUserNameByUid(user);
+    public int updateUserByUid(User user){
+        return  userMapper.updateUserByUid(user);
     }
 
     public int insertNewUser(User user){
@@ -47,5 +47,13 @@ public class UserServiceImpl implements UserService {
 
     public int insertMultiUsers(List<User> list){
         return userMapper.insertMultiUsers(list);
+    }
+
+    public int deleteMultiUsersByUid(List<Integer> list){
+        return userMapper.deleteMultiUsersByUid(list);
+    }
+
+    public int updateMultiUser(List<User> list){
+        return userMapper.updateMultiUser(list);
     }
 }

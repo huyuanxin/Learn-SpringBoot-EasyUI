@@ -11,7 +11,9 @@ public interface UserService{
     List<User> findAll();
     User getOneByUid(int uid);
     int deleteOneByUid(int uid);
-    int updateUserNameByUid(User user);
+    int updateUserByUid(User user);
     int insertNewUser(User user);
     int insertMultiUsers(List<User> list);
+    int deleteMultiUsersByUid(List<Integer> list);
+    int updateMultiUser(List<User> list);
 }
