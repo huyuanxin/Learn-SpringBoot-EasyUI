@@ -36,4 +36,12 @@
             <if test="Password != null">#{Password}</if>
         )
     </insert>
+
+    <insert id="insertMultiUsers" parameterType="List">
+        Insert Into User (username,password) values
+        <foreach collection="list" item="it" separator=",">
+            (#{it.UserName},#{it.Password})
+        </foreach>
+    </insert>
+
 </mapper>
