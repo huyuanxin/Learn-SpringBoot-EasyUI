@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.domain.mybatis.mapper.UserMapper">
-
+    <!--Sql串-->
     <sql id="select">
-		Select * From User
-	</sql>
+        Select * From User
+    </sql>
 
+    <!--    查询全部Users-->
     <select id="findAll" resultType="com.example.demo.domain.mybatis.entity.User">
         <include refid="select">
 
         </include>
     </select>
+
+    <!--    通过uid获取单个User-->
     <select id="getOneByUid" parameterType="int" resultType="com.example.demo.domain.mybatis.entity.User">
         <include refid="select">
 
         </include>
         Where uid = #{uid}
     </select>
+
+    <!--    通过uid删除单个User-->
     <delete id="deleteOneByUid" parameterType="int">
         Delete From User Where uid= #{uid}
     </delete>
 
-    <update id="updateUserNameByUid" parameterType="com.example.demo.domain.mybatis.entity.User">
+    <!--通过uid修改User-->
+    <update id="updateUserByUid" parameterType="com.example.demo.domain.mybatis.entity.User">
         Update User u
         <set>
             <if test="UserName != null">u.username=#{UserName},</if>
@@ -30,18 +36,42 @@
         Where u.uid=#{uid}
     </update>
 
+    <!--    插入新的User-->
     <insert id="insertNewUser" parameterType="com.example.demo.domain.mybatis.entity.User">
         insert Into User(username,password) value (
-            <if test="UserName != null">#{UserName},</if>
-            <if test="Password != null">#{Password}</if>
+        <if test="UserName != null">#{UserName},</if>
+        <if test="Password != null">#{Password}</if>
         )
     </insert>
 
+    <!--    插入多Users-->
     <insert id="insertMultiUsers" parameterType="List">
         Insert Into User (username,password) values
         <foreach collection="list" item="it" separator=",">
             (#{it.UserName},#{it.Password})
         </foreach>
     </insert>
+
+    <!--    通过多个uid删除多个Users-->
+    <delete id="deleteMultiUsersByUid" parameterType="List">
+        Delete From User
+        Where uid in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--    批量更新Users-->
+    <update id="updateMultiUser" parameterType="List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            Update User
+            <set>
+                <if test="item.UserName != null">username=#{item.UserName},</if>
+                <if test="item.Password != null">password=#{item.Password}</if>
+            </set>
+            Where Uid=#{item.Uid}
+        </foreach>
+
+    </update>
 
 </mapper>
