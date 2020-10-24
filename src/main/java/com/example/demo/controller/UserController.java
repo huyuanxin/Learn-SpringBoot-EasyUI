@@ -74,4 +74,10 @@ public class UserController {
             @RequestBody List<User> list) {
         return list;
     }
+
+    @RequestMapping(value = "/insetMultiUser", method = RequestMethod.GET)
+    public int insetMultiUser(
+            @RequestBody List<User> list) {
+        return userService.insertMultiUsers(list);
+    }
 }
