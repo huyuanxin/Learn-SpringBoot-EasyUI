@@ -3,9 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.api.UserService;
 import com.example.demo.domain.mybatis.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,44 +19,47 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/getAllUser",method = RequestMethod.GET)
-    public List<User> findAll(){
+    @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
+    public List<User> findAll() {
         return userService.findAll();
     }
 
     @RequestMapping(value = "/getUserByUid", method = RequestMethod.GET)
-    public User getOneById(HttpServletRequest request){
-        int uid= Integer.parseInt(request.getParameter("id"));
-        return userService.getOneByUid(uid);
+    public User getOneById(
+            @RequestParam("id") int id) {
+        return userService.getOneByUid(id);
     }
 
     @RequestMapping(value = "/getUserNameByUid", method = RequestMethod.GET)
-    public String getUserName(HttpServletRequest request){
-        int uid= Integer.parseInt(request.getParameter("id"));
+    public String getUserName(
+            @RequestParam("id") int uid) {
         return userService.getUserNameByUid(uid);
     }
 
     @RequestMapping(value = "/deleteUserByUid", method = RequestMethod.DELETE)
-    public int delete(HttpServletRequest request){
-        int uid= Integer.parseInt(request.getParameter("id"));
+    public int delete(
+            @RequestParam("id") int uid) {
         return userService.deleteOneByUid(uid);
     }
 
     @RequestMapping(value = "/updateUserName", method = RequestMethod.PUT)
-    public int changeName(HttpServletRequest request){
-        String password= request.getParameter("password");
-        String username= request.getParameter("username");
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user=new User(username,password);
-        user.setUid(id);
+    public int changeName(
+            @RequestParam("username") String userName,
+            @RequestParam("id") int uid) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setUid(uid);
         return userService.updateUserNameByUid(user);
     }
 
     @RequestMapping(value = "/addNewUser", method = RequestMethod.POST)
-    public int addNewUser(HttpServletRequest request){
-        String password= request.getParameter("password");
-        String username= request.getParameter("username");
-        User user=new User(username,password);
+    public int addNewUser(
+            @RequestParam(value = "username") String userName,
+            @RequestParam(value = "password") String password
+    ) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(password);
         return userService.insertNewUser(user);
 
     }
