@@ -5,7 +5,6 @@ import com.example.demo.domain.mybatis.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -42,18 +41,31 @@ public class UserController {
         return userService.deleteOneByUid(uid);
     }
 
-    @RequestMapping(value = "/updateUserName", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateUserByRequestParam", method = RequestMethod.PUT)
     public int changeName(
             @RequestParam("username") String userName,
             @RequestParam("id") int uid) {
         User user = new User();
         user.setUserName(userName);
         user.setUid(uid);
-        return userService.updateUserNameByUid(user);
+        return userService.updateUserByUid(user);
     }
 
-    @RequestMapping(value = "/addNewUser", method = RequestMethod.POST)
-    public int addNewUser(
+    @RequestMapping(value = "/updateUserByRequestBody", method = RequestMethod.PUT)
+    public int updateUserByRequestBody(
+            @RequestBody User user){
+        return userService.updateUserByUid(user);
+    }
+
+    @RequestMapping(value = "/addNewUserByRequestBody", method = RequestMethod.POST)
+    public int addNewUserByRequestBody(
+            @RequestBody User user
+    ){
+        return userService.insertNewUser(user);
+    }
+
+    @RequestMapping(value = "/addNewUserByRequestParam", method = RequestMethod.POST)
+    public int addNewUserByRequestParam(
             @RequestParam(value = "username") String userName,
             @RequestParam(value = "password") String password
     ) {
@@ -63,21 +75,4 @@ public class UserController {
         return userService.insertNewUser(user);
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public int count(
-            @RequestBody List<String> list) {
-        return list.size();
-    }
-
-    @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
-    public List<User> getUserList(
-            @RequestBody List<User> list) {
-        return list;
-    }
-
-    @RequestMapping(value = "/insetMultiUser", method = RequestMethod.GET)
-    public int insetMultiUser(
-            @RequestBody List<User> list) {
-        return userService.insertMultiUsers(list);
-    }
 }
