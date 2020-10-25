@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
 
-    private long Uid=0;
-    private String UserName="";
-    private String Password="";
+    private long Uid = 0;
+    private String UserName = "";
+    private String Password = "";
 
     @JsonProperty("Uid")
     public long getUid() {
