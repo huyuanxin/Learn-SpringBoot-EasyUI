@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.insertMultiUsers(list);
     }
 
-    public long deleteMultiUsersByUid(List<Integer> list) {
+    public long deleteMultiUsersByUid(List<Long> list) {
         return userMapper.deleteMultiUsersByUid(list);
     }
 

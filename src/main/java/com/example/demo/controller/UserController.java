@@ -123,7 +123,7 @@ public class UserController {
     // 通过删除Uid删除多个Users
     @RequestMapping(value = "/deleteMultiUserByUid", method = RequestMethod.DELETE)
     public long deleteMultiUserByUid(
-            @RequestBody List<Integer> list) {
+            @RequestBody List<Long> list) {
         list.removeIf(it -> it <= 0);
         if (list.size() != 0) {
             return userService.deleteMultiUsersByUid(list);

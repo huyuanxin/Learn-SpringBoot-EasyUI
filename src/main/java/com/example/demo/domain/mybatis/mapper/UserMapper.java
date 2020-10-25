@@ -21,7 +21,7 @@ public interface UserMapper {
 
     long insertMultiUsers(List<User> list);
 
-    long deleteMultiUsersByUid(List<Integer> list);
+    long deleteMultiUsersByUid(List<Long> list);
 
     long updateMultiUser(List<User> list);
 }
