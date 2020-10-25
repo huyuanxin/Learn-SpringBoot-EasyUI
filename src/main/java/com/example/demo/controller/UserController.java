@@ -40,46 +40,66 @@ public class UserController {
 
     // 通过Uid删除单个User
     @RequestMapping(value = "/deleteUserByUid", method = RequestMethod.DELETE)
-    public int delete(
+    public long delete(
             @RequestParam("id") int uid) {
         return userService.deleteOneByUid(uid);
     }
 
     // 通过RequestParam获得参数更新User
     @RequestMapping(value = "/updateUserByRequestParam", method = RequestMethod.PUT)
-    public int updateUserByRequestParam(
-            @RequestParam(value = "username", required = false) String userName,
-            @RequestParam(value = "password", required = false) String password,
+    public long updateUserByRequestParam(
+            @RequestParam(value = "username", required = false, defaultValue = "") String userName,
+            @RequestParam(value = "password", required = false, defaultValue = "") String password,
             @RequestParam("id") int uid) {
-        User user = new User();
-        if (!userName.equals("")) {
-            user.setUserName(userName);
+        User user = userService.getOneByUid(uid);
+        if (user != null) {
+            if (!userName.equals("")) {
+                user.setUserName(userName);
+            }
+            if (!password.equals("")) {
+                user.setPassword(password);
+            }
+            return userService.updateUserByUid(user);
         }
-        if (!password.equals("")) {
-            user.setPassword(password);
-        }
-        user.setUid(uid);
-        return userService.updateUserByUid(user);
+        return 0;
     }
 
     // 通过RequestBody获得参数更新User
     @RequestMapping(value = "/updateUserByRequestBody", method = RequestMethod.PUT)
-    public int updateUserByRequestBody(
+    public long updateUserByRequestBody(
             @RequestBody User user) {
-        return userService.updateUserByUid(user);
+        if (user.getUid() != 0) {
+            User u = userService.getOneByUid(user.getUid());
+            if (u != null) {
+                if (user.getUserName().equals("") && user.getPassword().equals("")) {
+                    return 0;
+                }
+                if (!user.getUserName().equals("")) {
+                    u.setUserName(user.getUserName());
+                }
+                if (!user.getPassword().equals("")) {
+                    u.setPassword(user.getPassword());
+                }
+                return userService.updateUserByUid(u);
+            }
+        }
+        return 0;
     }
 
     // 通过RequestBody添加User
     @RequestMapping(value = "/addNewUserByRequestBody", method = RequestMethod.POST)
-    public int addNewUserByRequestBody(
+    public long addNewUserByRequestBody(
             @RequestBody User user
     ) {
-        return userService.insertNewUser(user);
+        if (!user.getPassword().equals("") && !user.getUserName().equals("")) {
+            return userService.insertNewUser(user);
+        }
+        return 0;
     }
 
     // 通过RequestParam添加User
     @RequestMapping(value = "/addNewUserByRequestParam", method = RequestMethod.POST)
-    public int addNewUserByRequestParam(
+    public long addNewUserByRequestParam(
             @RequestParam(value = "username") String userName,
             @RequestParam(value = "password") String password
     ) {
@@ -91,22 +111,50 @@ public class UserController {
 
     // 添加多个Users
     @RequestMapping(value = "/insetMultiUser", method = RequestMethod.POST)
-    public int insetMultiUser(
+    public long insetMultiUser(
             @RequestBody List<User> list) {
-        return userService.insertMultiUsers(list);
+        list.removeIf(it -> it.getUserName().equals("") || it.getPassword().equals(""));
+        if (list.size() != 0) {
+            return userService.insertMultiUsers(list);
+        }
+        return 0;
     }
 
     // 通过删除Uid删除多个Users
     @RequestMapping(value = "/deleteMultiUserByUid", method = RequestMethod.DELETE)
-    public int deleteMultiUserByUid(
+    public long deleteMultiUserByUid(
             @RequestBody List<Integer> list) {
-        return userService.deleteMultiUsersByUid(list);
+        list.removeIf(it -> it <= 0);
+        if (list.size() != 0) {
+            return userService.deleteMultiUsersByUid(list);
+        }
+        return 0;
     }
 
     // 更新多个Users
     @RequestMapping(value = "/updateMultiUser", method = RequestMethod.PUT)
-    public int updateMultiUser(
+    public long updateMultiUser(
             @RequestBody List<User> list) {
-        return userService.updateMultiUser(list);
+        list.removeIf(
+                it ->
+                        it.getUid() <= 0 ||
+                                (it.getUserName().equals("") && it.getPassword().equals(""))
+        );
+        if (list.size() != 0) {
+            for (User it : list
+            ) {
+                User u = userService.getOneByUid(it.getUid());
+                if (u != null) {
+                    if (it.getUserName().equals("")) {
+                        it.setUserName(u.getUserName());
+                    }
+                    if (it.getPassword().equals("")) {
+                        it.setPassword(u.getPassword());
+                    }
+                }
+            }
+            return userService.updateMultiUser(list);
+        }
+        return 0;
     }
 }
