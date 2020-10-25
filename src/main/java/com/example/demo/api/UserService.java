@@ -9,11 +9,11 @@ import java.util.List;
 public interface UserService{
     String getUserNameByUid(int uid);
     List<User> findAll();
-    User getOneByUid(int uid);
-    int deleteOneByUid(int uid);
-    int updateUserByUid(User user);
-    int insertNewUser(User user);
-    int insertMultiUsers(List<User> list);
-    int deleteMultiUsersByUid(List<Integer> list);
-    int updateMultiUser(List<User> list);
+    User getOneByUid(long uid);
+    long deleteOneByUid(long uid);
+    long updateUserByUid(User user);
+    long insertNewUser(User user);
+    long insertMultiUsers(List<User> list);
+    long deleteMultiUsersByUid(List<Integer> list);
+    long updateMultiUser(List<User> list);
 }
