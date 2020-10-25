@@ -14,7 +14,7 @@
     </select>
 
     <!--    通过uid获取单个User-->
-    <select id="getOneByUid" parameterType="int" resultType="com.example.demo.domain.mybatis.entity.User">
+    <select id="getOneByUid" parameterType="long" resultType="com.example.demo.domain.mybatis.entity.User">
         <include refid="select">
 
         </include>
@@ -22,7 +22,7 @@
     </select>
 
     <!--    通过uid删除单个User-->
-    <delete id="deleteOneByUid" parameterType="int">
+    <delete id="deleteOneByUid" parameterType="long">
         Delete From User Where uid= #{uid}
     </delete>
 
