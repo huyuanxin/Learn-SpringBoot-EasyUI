@@ -24,6 +24,15 @@
         POST : http://localhost:8080/User/addNewUserByRequestParam?username=value0&password=value1 value0&value1(String)
 
 ### 以下均为RequestBody
+
+#### Headers :
+
+| Key          | Value        |
+| ------------ | ------------ |
+| Content-Type | Content-Type |
+
+
+
 updateUserByRequestBody
     PUT : http://localhost:8080/User/updateUserByRequestBody
 	Body:
