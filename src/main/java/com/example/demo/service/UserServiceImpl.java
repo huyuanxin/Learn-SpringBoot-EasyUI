@@ -29,31 +29,31 @@ public class UserServiceImpl implements UserService {
         return  userMapper.findAll();
     }
 
-    public User getOneByUid(int uid){
+    public User getOneByUid(long uid){
         return userMapper.getOneByUid(uid);
     }
 
-    public  int deleteOneByUid(int uid){
+    public  long deleteOneByUid(long uid){
         return userMapper.deleteOneByUid(uid);
     }
 
-    public int updateUserByUid(User user){
+    public long updateUserByUid(User user){
         return  userMapper.updateUserByUid(user);
     }
 
-    public int insertNewUser(User user){
+    public long insertNewUser(User user){
         return  userMapper.insertNewUser(user);
     }
 
-    public int insertMultiUsers(List<User> list){
+    public long insertMultiUsers(List<User> list){
         return userMapper.insertMultiUsers(list);
     }
 
-    public int deleteMultiUsersByUid(List<Integer> list){
+    public long deleteMultiUsersByUid(List<Integer> list){
         return userMapper.deleteMultiUsersByUid(list);
     }
 
-    public int updateMultiUser(List<User> list){
+    public long updateMultiUser(List<User> list){
         return userMapper.updateMultiUser(list);
     }
 }
