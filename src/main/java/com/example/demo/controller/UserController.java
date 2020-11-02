@@ -19,7 +19,7 @@ public class UserController {
     }
 
     // 获取全部Users
-    @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllUser", method = RequestMethod.POST)
     public List<User> findAll() {
         return userService.findAll();
     }
