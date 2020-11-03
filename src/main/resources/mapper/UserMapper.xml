@@ -74,4 +74,12 @@
 
     </update>
 
+
+    <select id="getAllUerWithLimits" parameterType="long" resultType="com.example.demo.domain.mybatis.entity.User">
+        Select * From User limit #{start},#{pageSize}
+    </select>
+
+    <select id="countUsers" resultType="long">
+        select count(*) From User
+    </select>
 </mapper>

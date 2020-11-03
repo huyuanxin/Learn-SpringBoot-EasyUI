@@ -24,5 +24,9 @@ public interface UserMapper {
     long deleteMultiUsersByUid(List<Long> list);
 
     long updateMultiUser(List<User> list);
+
+    List<User> getAllUerWithLimits(long start,long pageSize);
+
+    long countUsers();
 }
 

@@ -56,4 +56,12 @@ public class UserServiceImpl implements UserService {
     public long updateMultiUser(List<User> list) {
         return userMapper.updateMultiUser(list);
     }
+
+    public List<User> getAllUerWithLimits(long start,long pageSize){
+        return userMapper.getAllUerWithLimits(start,pageSize);
+    }
+
+    public long countUsers(){
+        return userMapper.countUsers();
+    }
 }
