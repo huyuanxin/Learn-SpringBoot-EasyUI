@@ -11,6 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class Test2 {
     @Test
     public void Test() {
-        System.out.print("TEST1");
+        System.out.print("TEST2");
     }
 }
