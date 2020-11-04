@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class Test1{
     @Autowired
     UserService service;
-
     @Test
     public void Test(){
         System.out.print("TEST1");

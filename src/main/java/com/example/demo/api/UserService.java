@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("UserService")
 public interface UserService {
     String getUserNameByUid(int uid);
 

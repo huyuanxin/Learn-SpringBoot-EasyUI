@@ -6,7 +6,6 @@ import com.example.demo.domain.mybatis.entity.easyui.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.certpath.OCSPResponse;
 
 import java.util.List;
 
@@ -15,14 +14,13 @@ import java.util.List;
 @RequestMapping("/User")
 public class UserController {
     final UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     // 获取全部Users
-    @RequestMapping(value = "/getAllUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
     public List<User> findAll() {
         return userService.findAll();
     }
@@ -30,8 +28,7 @@ public class UserController {
     @RequestMapping(value = "/getAllUserDto", method = RequestMethod.GET)
     public UserDto dto() {
         List<User> user= userService.findAll();
-        UserDto dto=new UserDto(HttpStatus.OK,user,"succeed");
-        return dto;
+        return new UserDto(HttpStatus.OK,user,"succeed");
     }
 
     // 通过Uid获取单个User

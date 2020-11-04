@@ -4,11 +4,11 @@ import com.example.demo.api.UserService;
 import com.example.demo.domain.mybatis.entity.User;
 import com.example.demo.domain.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service("UserService")
 public class UserServiceImpl implements UserService {
     final UserMapper userMapper;
 
