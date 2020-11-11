@@ -2,45 +2,49 @@ package com.example.demo.domain.mybatis.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * @author yuanxin
+ * @create 2020/11/11 11:25
+ */
 public class User {
 
-    private long Uid = 0;
-    private String UserName = "";
-    private String Password = "";
+    private long uid = 0;
+    private String userName = "";
+    private String password = "";
 
     @JsonProperty("Uid")
     public long getUid() {
-        return Uid;
+        return uid;
     }
 
     public void setUid(long uid) {
-        this.Uid = uid;
+        this.uid = uid;
     }
 
     @JsonProperty("UserName")
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     @JsonProperty("Password")
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "uid=" + Uid +
-                ", UserName='" + UserName + '\'' +
-                ", Password='" + Password + '\'' +
+                "uid=" + uid +
+                ", UserName='" + userName + '\'' +
+                ", Password='" + password + '\'' +
                 '}';
     }
 }

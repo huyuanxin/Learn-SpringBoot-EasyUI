@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author yuanxin
+ * @create 2020/11/11 11:25
+ */
 @Service("UserService")
 public class UserServiceImpl implements UserService {
     final UserMapper userMapper;
@@ -17,6 +21,7 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    @Override
     public String getUserNameByUid(int uid) {
         User user = userMapper.getOneByUid(uid);
         if (user != null) {
@@ -25,42 +30,52 @@ public class UserServiceImpl implements UserService {
         return "noUser";
     }
 
+    @Override
     public List<User> findAll() {
         return userMapper.findAll();
     }
 
+    @Override
     public User getOneByUid(long uid) {
         return userMapper.getOneByUid(uid);
     }
 
+    @Override
     public long deleteOneByUid(long uid) {
         return userMapper.deleteOneByUid(uid);
     }
 
+    @Override
     public long updateUserByUid(User user) {
         return userMapper.updateUserByUid(user);
     }
 
+    @Override
     public long insertNewUser(User user) {
         return userMapper.insertNewUser(user);
     }
 
+    @Override
     public long insertMultiUsers(List<User> list) {
         return userMapper.insertMultiUsers(list);
     }
 
+    @Override
     public long deleteMultiUsersByUid(List<Long> list) {
         return userMapper.deleteMultiUsersByUid(list);
     }
 
+    @Override
     public long updateMultiUser(List<User> list) {
         return userMapper.updateMultiUser(list);
     }
 
-    public List<User> getAllUerWithLimits(long start,long pageSize){
+    @Override
+    public List<User> getAllUerWithLimits(long start, long pageSize){
         return userMapper.getAllUerWithLimits(start,pageSize);
     }
 
+    @Override
     public long countUsers(){
         return userMapper.countUsers();
     }

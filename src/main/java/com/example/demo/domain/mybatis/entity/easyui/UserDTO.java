@@ -5,24 +5,28 @@ import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
-public class UserDto {
+/**
+ * @author yuanxin
+ * @create 2020/11/11 11:25
+ */
+public class UserDTO {
     HttpStatus httpStatus;
-    long total;
+    Long total;
     List<User> rows;
-    String Message;
+    String message;
 
-    public UserDto(HttpStatus httpStatus, long total, List<User> rows, String message) {
+    public UserDTO(HttpStatus httpStatus, long total, List<User> rows, String message) {
         this.httpStatus = httpStatus;
         this.total = total;
         this.rows = rows;
-        Message = message;
+        this.message = message;
     }
 
-    public UserDto(HttpStatus httpStatus, List<User> rows, String message) {
+    public UserDTO(HttpStatus httpStatus, List<User> rows, String message) {
         this.httpStatus = httpStatus;
         this.rows = rows;
-        this.total = rows.size();
-        Message = message;
+        this.total = (long) rows.size();
+        this.message = message;
     }
 
     public HttpStatus getHttpStatus() {
@@ -50,10 +54,20 @@ public class UserDto {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "httpStatus=" + httpStatus +
+                ", total=" + total +
+                ", rows=" + rows +
+                ", Message='" + message + '\'' +
+                '}';
     }
 }

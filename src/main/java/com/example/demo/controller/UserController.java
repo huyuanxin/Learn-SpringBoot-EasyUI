@@ -2,14 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.api.UserService;
 import com.example.demo.domain.mybatis.entity.User;
-import com.example.demo.domain.mybatis.entity.easyui.UserDto;
+import com.example.demo.domain.mybatis.entity.easyui.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * @author yuanxin
+ * @create 2020/11/11 11:25
+ */
 @RestController
 @RequestMapping("/User")
 public class UserController {
@@ -19,40 +22,35 @@ public class UserController {
         this.userService = userService;
     }
 
-    // 获取全部Users
     @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
     public List<User> findAll() {
         return userService.findAll();
     }
 
     @RequestMapping(value = "/getAllUserDto", method = RequestMethod.GET)
-    public UserDto dto() {
+    public UserDTO dto() {
         List<User> user= userService.findAll();
-        return new UserDto(HttpStatus.OK,user,"succeed");
+        return new UserDTO(HttpStatus.OK,user,"succeed");
     }
 
-    // 通过Uid获取单个User
     @RequestMapping(value = "/getUserByUid", method = RequestMethod.GET)
     public User getOneById(
             @RequestParam("id") int id) {
         return userService.getOneByUid(id);
     }
 
-    // 通过Uid获取User.UserName
     @RequestMapping(value = "/getUserNameByUid", method = RequestMethod.GET)
     public String getUserName(
             @RequestParam("id") int uid) {
         return userService.getUserNameByUid(uid);
     }
 
-    // 通过Uid删除单个User
     @RequestMapping(value = "/deleteUserByUid", method = RequestMethod.DELETE)
     public long delete(
             @RequestParam("id") int uid) {
         return userService.deleteOneByUid(uid);
     }
 
-    // 通过RequestParam获得参数更新User
     @RequestMapping(value = "/updateUserByRequestParam", method = RequestMethod.PUT)
     public long updateUserByRequestParam(
             @RequestParam(value = "username", required = false, defaultValue = "") String userName,
@@ -60,10 +58,10 @@ public class UserController {
             @RequestParam("id") int uid) {
         User user = userService.getOneByUid(uid);
         if (user != null) {
-            if (!userName.equals("")) {
+            if (!"".equals(userName)) {
                 user.setUserName(userName);
             }
-            if (!password.equals("")) {
+            if (!"".equals(password)) {
                 user.setPassword(password);
             }
             return userService.updateUserByUid(user);
@@ -71,20 +69,19 @@ public class UserController {
         return 0;
     }
 
-    // 通过RequestBody获得参数更新User
     @RequestMapping(value = "/updateUserByRequestBody", method = RequestMethod.PUT)
     public long updateUserByRequestBody(
             @RequestBody User user) {
         if (user.getUid() != 0) {
             User u = userService.getOneByUid(user.getUid());
             if (u != null) {
-                if (user.getUserName().equals("") && user.getPassword().equals("")) {
+                if ("".equals(user.getUserName()) && "".equals(user.getPassword())) {
                     return 0;
                 }
-                if (!user.getUserName().equals("")) {
+                if (!"".equals(user.getUserName())) {
                     u.setUserName(user.getUserName());
                 }
-                if (!user.getPassword().equals("")) {
+                if (!"".equals(user.getPassword())) {
                     u.setPassword(user.getPassword());
                 }
                 return userService.updateUserByUid(u);
@@ -93,18 +90,16 @@ public class UserController {
         return 0;
     }
 
-    // 通过RequestBody添加User
     @RequestMapping(value = "/addNewUserByRequestBody", method = RequestMethod.POST)
     public long addNewUserByRequestBody(
             @RequestBody User user
     ) {
-        if (!user.getPassword().equals("") && !user.getUserName().equals("")) {
+        if (!"".equals(user.getPassword()) && !"".equals(user.getUserName())) {
             return userService.insertNewUser(user);
         }
         return 0;
     }
 
-    // 通过RequestParam添加User
     @RequestMapping(value = "/addNewUserByRequestParam", method = RequestMethod.POST)
     public long addNewUserByRequestParam(
             @RequestParam(value = "username") String userName,
@@ -116,18 +111,16 @@ public class UserController {
         return userService.insertNewUser(user);
     }
 
-    // 添加多个Users
     @RequestMapping(value = "/insetMultiUser", method = RequestMethod.POST)
     public long insetMultiUser(
             @RequestBody List<User> list) {
-        list.removeIf(it -> it.getUserName().equals("") || it.getPassword().equals(""));
+        list.removeIf(it -> "".equals(it.getUserName()) || "".equals(it.getPassword()));
         if (list.size() != 0) {
             return userService.insertMultiUsers(list);
         }
         return 0;
     }
 
-    // 通过删除Uid删除多个Users
     @RequestMapping(value = "/deleteMultiUserByUid", method = RequestMethod.DELETE)
     public long deleteMultiUserByUid(
             @RequestBody List<Long> list) {
@@ -138,24 +131,23 @@ public class UserController {
         return 0;
     }
 
-    // 更新多个Users
     @RequestMapping(value = "/updateMultiUser", method = RequestMethod.PUT)
     public long updateMultiUser(
             @RequestBody List<User> list) {
         list.removeIf(
                 it ->
                         it.getUid() <= 0 ||
-                                (it.getUserName().equals("") && it.getPassword().equals(""))
+                                ("".equals(it.getUserName()) && "".equals(it.getPassword()))
         );
         if (list.size() != 0) {
             for (User it : list
             ) {
                 User u = userService.getOneByUid(it.getUid());
                 if (u != null) {
-                    if (it.getUserName().equals("")) {
+                    if ("".equals(it.getUserName())) {
                         it.setUserName(u.getUserName());
                     }
-                    if (it.getPassword().equals("")) {
+                    if ("".equals(it.getPassword())) {
                         it.setPassword(u.getPassword());
                     }
                 }
