@@ -1,5 +1,6 @@
 # User表
-create table user
+drop database if exists `User`;
+create table User
 (
     uid      bigint auto_increment
         primary key,
@@ -7,3 +8,26 @@ create table user
     password varchar(50) not null
 );
 
+insert into spring.user(USERNAME, PASSWORD) value ('username', 'password');
+
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
+insert into spring.user(username, password)
+select username, password
+from spring.user;
