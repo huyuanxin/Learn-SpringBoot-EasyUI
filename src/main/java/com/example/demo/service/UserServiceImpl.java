@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.mybatis.entity.User;
-import com.example.demo.domain.mybatis.mapper.UserMapper;
+import com.example.demo.domain.entity.User;
+import com.example.demo.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

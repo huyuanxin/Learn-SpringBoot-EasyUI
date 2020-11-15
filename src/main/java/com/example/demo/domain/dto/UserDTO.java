@@ -1,6 +1,6 @@
-package com.example.demo.domain.mybatis.entity.easyui;
+package com.example.demo.domain.dto;
 
-import com.example.demo.domain.mybatis.entity.User;
+import com.example.demo.domain.entity.User;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;

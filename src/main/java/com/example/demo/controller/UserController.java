@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.mybatis.entity.User;
-import com.example.demo.domain.mybatis.entity.easyui.UserDTO;
+import com.example.demo.domain.entity.User;
+import com.example.demo.domain.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/User")
 public class UserController {
     final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -29,8 +30,8 @@ public class UserController {
 
     @RequestMapping(value = "/getAllUserDto", method = RequestMethod.GET)
     public UserDTO dto() {
-        List<User> user= userService.findAll();
-        return new UserDTO(HttpStatus.OK,user,"succeed");
+        List<User> user = userService.findAll();
+        return new UserDTO(HttpStatus.OK, user, "succeed");
     }
 
     @RequestMapping(value = "/getUserByUid", method = RequestMethod.GET)

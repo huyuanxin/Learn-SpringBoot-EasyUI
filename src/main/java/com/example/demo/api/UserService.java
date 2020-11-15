@@ -1,6 +1,6 @@
 package com.example.demo.api;
 
-import com.example.demo.domain.mybatis.entity.User;
+import com.example.demo.domain.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

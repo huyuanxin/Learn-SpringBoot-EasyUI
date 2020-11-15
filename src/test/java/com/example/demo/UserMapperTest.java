@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.domain.mybatis.mapper.UserMapper;
+import com.example.demo.domain.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;

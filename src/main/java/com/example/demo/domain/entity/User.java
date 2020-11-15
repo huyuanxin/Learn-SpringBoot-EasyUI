@@ -1,4 +1,4 @@
-package com.example.demo.domain.mybatis.entity;
+package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

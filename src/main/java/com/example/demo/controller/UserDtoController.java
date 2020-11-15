@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.mybatis.entity.User;
-import com.example.demo.domain.mybatis.entity.easyui.UserDTO;
+import com.example.demo.domain.entity.User;
+import com.example.demo.domain.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +33,7 @@ public class UserDtoController {
     ) {
         if (page <= 0 || rows <= 0) {
             List<User> user = userService.findAll();
-            UserDTO dto = new UserDTO(HttpStatus.OK, user, "succeed");
-            return dto;
+            return new UserDTO(HttpStatus.OK, user, "succeed");
         }
         long size = userService.countUsers();
         long start = (page - 1) * rows;
