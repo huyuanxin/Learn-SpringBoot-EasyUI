@@ -44,7 +44,7 @@
     </insert>
 
     <!--    插入多Users-->
-    <insert id="insertMultiUsers" parameterType="List">
+    <insert id="insertMultiUsers" parameterType="list">
         Insert Into spring.user (username,password) values
         <foreach collection="list" item="it" separator=",">
             (#{it.userName,jdbcType=VARCHAR},#{it.password,jdbcType=VARCHAR})
@@ -52,7 +52,7 @@
     </insert>
 
     <!--    通过多个uid删除多个Users-->
-    <delete id="deleteMultiUsersByUid" parameterType="List">
+    <delete id="deleteMultiUsersByUid" parameterType="list">
         Delete From spring.user
         Where uid in
         <foreach collection="list" item="item" open="(" separator="," close=")">
@@ -61,7 +61,7 @@
     </delete>
 
     <!--    批量更新Users-->
-    <update id="updateMultiUser" parameterType="List">
+    <update id="updateMultiUser" parameterType="list">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             Update spring.user
             <set>

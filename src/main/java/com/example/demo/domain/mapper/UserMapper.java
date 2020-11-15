@@ -14,9 +14,11 @@ import java.util.List;
 @Repository
 @Mapper
 public interface UserMapper {
+
     /**
-     * @return ListUser
-     * @author 查询表内全部User
+     * 通过Uid获取一个User
+     *
+     * @return 全部User
      */
     List<User> findAll();
 
