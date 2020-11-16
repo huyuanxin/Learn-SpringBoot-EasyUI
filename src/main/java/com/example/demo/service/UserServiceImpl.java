@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public long countUsers(){
-        return userMapper.countUsers();
+    public long countTableRows(String tableName){
+        return userMapper.counter(tableName);
     }
 }

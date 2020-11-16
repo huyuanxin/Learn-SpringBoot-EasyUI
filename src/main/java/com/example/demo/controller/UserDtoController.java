@@ -35,7 +35,7 @@ public class UserDtoController {
             List<User> user = userService.findAll();
             return new UserDTO(HttpStatus.OK, user, "succeed");
         }
-        long size = userService.countUsers();
+        long size = userService.countTableRows("user");
         long start = (page - 1) * rows;
         List<User> users = userService.getAllUerWithLimits(start, rows);
         return new UserDTO(HttpStatus.OK, size, users, "succeed");

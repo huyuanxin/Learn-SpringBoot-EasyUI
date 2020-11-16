@@ -75,10 +75,10 @@
 
 
     <select id="getAllUerWithLimits" parameterType="long" resultType="com.example.demo.domain.entity.User">
-        Select * From spring.user limit #{start},#{pageSize}
+        SELECT a.* FROM spring.user a, (select uid from spring.user LIMIT #{start},#{pageSize} ) b where a.uid=b.uid
     </select>
 
-    <select id="countUsers" resultType="long">
-        select count(*) From spring.user
+    <select id="counter" resultType="long" parameterType="string">
+        select counter from spring.tablecounter where name=#{tableName}
     </select>
 </mapper>

@@ -83,9 +83,11 @@ public interface UserService {
      */
     List<User> getAllUerWithLimits(long start,long pageSize);
 
+
     /**
-     * 查询User表内有多少条记录
-     * @return result User表内的数量
+     * 查询表内有多少条记录
+     * @param tableName 表名
+     * @return 结果
      */
-    long countUsers();
+    long countTableRows(String tableName);
 }

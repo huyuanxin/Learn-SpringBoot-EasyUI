@@ -1,5 +1,4 @@
 
-
 function loadData() {
     $('#dg').datagrid({
         url:"/EasyUI/getUser",
@@ -7,13 +6,25 @@ function loadData() {
         pageSize:10,
         pageNumber:1,
         pageList:[10,20,50],
+        singleSelect:false,
+        toolbar:[
+            {
+                text: '删除',
+                iconCls: 'icon-remove',
+                handler: function () { deleteSelectedUser();
+                }
+            }
+        ],
         columns: [
             [
+                {
+                    field:'cks',
+                    checkbox:true},
                 {
                     field: 'Uid',
                     title: 'Uid',
                     width: 100,
-                    formatter: function (value, row, index) {
+                    formatter: function (value, row) {
                         return row.Uid
                     }
                 },
@@ -21,7 +32,7 @@ function loadData() {
                     field: 'UserName',
                     title: '姓名',
                     width: 100,
-                    formatter: function (value, row, index) {
+                    formatter: function (value, row) {
                         return row.UserName
                     }
                 },
@@ -30,7 +41,7 @@ function loadData() {
                     title: '密码',
                     width: 100,
                     align: 'right',
-                    formatter: function (value, row, index) {
+                    formatter: function (value, row) {
                         return row.Password
                     }
                 },
@@ -38,10 +49,9 @@ function loadData() {
                     title: "操作",
                     field:'_operate',
                     formatter:function (value, row, index) {
-                        const rowIndex = index + 1;
-                        return '<Button onclick="deleteUser('+rowIndex+')">删除</Button>'
+                        return '<Button onclick="deleteUser('+index+')">删除</Button>'
                     }
-                }
+                },
             ]
         ],
         pagination: true,
@@ -49,7 +59,7 @@ function loadData() {
 }
 
 function deleteUser(index){
-    var row = $('#dg').datagrid('getData').rows[index-1];
+    var row = $('#dg').datagrid('getData').rows[index];
     $.messager.confirm('删除', '选中的信息是否删除?', function(r) {
         if(r){
 
@@ -62,4 +72,31 @@ function deleteUser(index){
     })
 }
 
-onload = loadData
+function deleteSelectedUser() {
+    var rows = $('#dg').datagrid('getChecked');
+    var ids = [];
+    if (rows.length > 0) {
+        $.each(rows, function (idx, row) {
+            ids.push(row.Uid);
+        });
+        $.messager.confirm('删除', '选中的信息是否删除?', function(r) {
+            if (r) {
+                $.ajax({
+                    url: "/User/deleteMultiUserByUid",
+                    method: "Delete",
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify(ids),
+                    traditional: true,
+                    success: function () {
+                        $("#dg").datagrid('reload');
+                    }
+                })
+            }
+        })
+    }
+}
+
+window.onload=function () {
+    loadData()
+}

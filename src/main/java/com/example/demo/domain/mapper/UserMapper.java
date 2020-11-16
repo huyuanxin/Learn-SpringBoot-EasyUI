@@ -90,11 +90,12 @@ public interface UserMapper {
             @Param("pageSize") long pageSize
     );
 
+
     /**
-     * 查询User表内有多少条记录
-     *
-     * @return result User表内的数量
+     * 查询表内有多少条记录
+     * @param tableName 表名
+     * @return 总条数
      */
-    long countUsers();
+    long counter(@Param("tableName") String tableName);
 }
 
