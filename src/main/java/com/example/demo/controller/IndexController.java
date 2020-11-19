@@ -14,4 +14,9 @@ public class IndexController {
     public String indexPage() {
         return "index";
     }
+
+    @RequestMapping(value = "/saveUser", method = RequestMethod.GET)
+    public String saveUserPage() {
+        return "saveUser";
+    }
 }
