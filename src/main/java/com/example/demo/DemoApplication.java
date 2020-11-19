@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author yuanxin
  * @create 2020/11/11 11:25
  */
-@SuppressWarnings({"ALL", "AlibabaClassMustHaveAuthor"})
+
 @SpringBootApplication
 public class DemoApplication {
     public static void main(String[] args) {
