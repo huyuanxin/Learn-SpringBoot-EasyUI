@@ -1,6 +1,8 @@
-package com.example.demo.domain.entity;
+package com.example.demo.po;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 /**
  * @author yuanxin
@@ -46,5 +48,22 @@ public class User {
                 ", UserName='" + userName + '\'' +
                 ", Password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return uid == user.uid && Objects.equals(userName, user.userName) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, userName, password);
     }
 }

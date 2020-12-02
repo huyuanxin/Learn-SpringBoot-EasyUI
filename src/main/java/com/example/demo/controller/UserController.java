@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.entity.User;
-import com.example.demo.domain.dto.UserDTO;
+import com.example.demo.po.User;
+import com.example.demo.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +37,19 @@ public class UserController {
     @RequestMapping(value = "/getUserByUid", method = RequestMethod.GET)
     public User getOneById(
             @RequestParam("id") int id) {
-        return userService.getOneByUid(id);
+        return userService.getUserByUserUid(id);
     }
 
     @RequestMapping(value = "/getUserNameByUid", method = RequestMethod.GET)
     public String getUserName(
             @RequestParam("id") int uid) {
         return userService.getUserNameByUid(uid);
+    }
+
+    @RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET)
+    public User getUserByUserName(
+            @RequestParam("username") String userName) {
+        return userService.getUserByUserName(userName);
     }
 
     @RequestMapping(value = "/deleteUserByUid", method = RequestMethod.DELETE)
@@ -57,7 +63,7 @@ public class UserController {
             @RequestParam(value = "username", required = false, defaultValue = "") String userName,
             @RequestParam(value = "password", required = false, defaultValue = "") String password,
             @RequestParam("id") int uid) {
-        User user = userService.getOneByUid(uid);
+        User user = userService.getUserByUserUid(uid);
         if (user != null) {
             if (!"".equals(userName)) {
                 user.setUserName(userName);
@@ -74,7 +80,7 @@ public class UserController {
     public long updateUserByRequestBody(
             @RequestBody User user) {
         if (user.getUid() != 0) {
-            User u = userService.getOneByUid(user.getUid());
+            User u = userService.getUserByUserUid(user.getUid());
             if (u != null) {
                 if ("".equals(user.getUserName()) && "".equals(user.getPassword())) {
                     return 0;
@@ -143,7 +149,7 @@ public class UserController {
         if (list.size() != 0) {
             for (User it : list
             ) {
-                User u = userService.getOneByUid(it.getUid());
+                User u = userService.getUserByUserUid(it.getUid());
                 if (u != null) {
                     if ("".equals(it.getUserName())) {
                         it.setUserName(u.getUserName());

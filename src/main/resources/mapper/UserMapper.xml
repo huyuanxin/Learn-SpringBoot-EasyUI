@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.domain.mapper.UserMapper">
+<mapper namespace="com.example.demo.dao.UserMapper">
     <!--Sql串-->
     <sql id="select">
         Select * From spring.user
     </sql>
 
     <!--    查询全部Users-->
-    <select id="findAll" resultType="com.example.demo.domain.entity.User">
+    <select id="findAll" resultType="com.example.demo.po.User">
         <include refid="select">
 
         </include>
     </select>
 
     <!--    通过uid获取单个User-->
-    <select id="getOneByUid" parameterType="long" resultType="com.example.demo.domain.entity.User">
+    <select id="getUserByUserUid" parameterType="long" resultType="com.example.demo.po.User">
         <include refid="select">
 
         </include>
         Where uid = #{uid}
+    </select>
+
+
+    <!--    通过UserName获取单个User-->
+    <select id="getUserByUserName" parameterType="string" resultType="com.example.demo.po.User">
+        <include refid="select">
+
+        </include>
+        Where username = #{username}
     </select>
 
     <!--    通过uid删除单个User-->
@@ -27,7 +36,7 @@
     </delete>
 
     <!--通过uid修改User-->
-    <update id="updateUserByUid" parameterType="com.example.demo.domain.entity.User">
+    <update id="updateUserByUid" parameterType="com.example.demo.po.User">
         Update spring.user u
         <set>
             <if test="userName != null">u.username=#{userName,jdbcType=VARCHAR},</if>
@@ -36,7 +45,7 @@
         Where u.uid=#{uid}
     </update>
 
-    <insert id="insertNewUser" parameterType="com.example.demo.domain.entity.User">
+    <insert id="insertNewUser" parameterType="com.example.demo.po.User">
         insert Into spring.user(username,password) value (
         <if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
         <if test="password != null">#{password,jdbcType=VARCHAR}</if>
@@ -74,7 +83,7 @@
     </update>
 
 
-    <select id="getAllUerWithLimits" parameterType="long" resultType="com.example.demo.domain.entity.User">
+    <select id="getAllUerWithLimits" parameterType="long" resultType="com.example.demo.po.User">
         SELECT a.* FROM spring.user a, (select uid from spring.user LIMIT #{start},#{pageSize} ) b where a.uid=b.uid
     </select>
 

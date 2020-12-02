@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.entity.User;
-import com.example.demo.domain.mapper.UserMapper;
+import com.example.demo.po.User;
+import com.example.demo.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUserNameByUid(int uid) {
-        User user = userMapper.getOneByUid(uid);
+        User user = userMapper.getUserByUserUid(uid);
         if (user != null) {
             return user.getUserName();
         }
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getOneByUid(long uid) {
-        return userMapper.getOneByUid(uid);
+    public User getUserByUserUid(long uid) {
+        return userMapper.getUserByUserUid(uid);
     }
 
     @Override
@@ -71,12 +71,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUerWithLimits(long start, long pageSize){
-        return userMapper.getAllUerWithLimits(start,pageSize);
+    public List<User> getAllUerWithLimits(long start, long pageSize) {
+        return userMapper.getAllUerWithLimits(start, pageSize);
     }
 
     @Override
-    public long countTableRows(String tableName){
+    public long countTableRows(String tableName) {
         return userMapper.counter(tableName);
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return userMapper.getUserByUserName(userName);
     }
 }

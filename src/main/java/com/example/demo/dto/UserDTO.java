@@ -1,6 +1,6 @@
-package com.example.demo.domain.dto;
+package com.example.demo.dto;
 
-import com.example.demo.domain.entity.User;
+import com.example.demo.po.User;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.api.UserService;
-import com.example.demo.domain.entity.User;
-import com.example.demo.domain.dto.UserDTO;
+import com.example.demo.po.User;
+import com.example.demo.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;

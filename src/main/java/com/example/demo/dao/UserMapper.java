@@ -1,6 +1,6 @@
-package com.example.demo.domain.mapper;
+package com.example.demo.dao;
 
-import com.example.demo.domain.entity.User;
+import com.example.demo.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -28,7 +28,9 @@ public interface UserMapper {
      * @param uid 用户的uid
      * @return User
      */
-    User getOneByUid(long uid);
+    User getUserByUserUid(
+            @Param("uid") long uid
+    );
 
     /**
      * 通过Uid删除一个User
@@ -36,7 +38,9 @@ public interface UserMapper {
      * @param uid 用户的Uid
      * @return result, 若成功返回1, 反之为0
      */
-    long deleteOneByUid(long uid);
+    long deleteOneByUid(
+            @Param("uid") long uid
+    );
 
     /**
      * 更新User
@@ -84,6 +88,7 @@ public interface UserMapper {
      * @param start    从第几条开始读取
      * @param pageSize 一页有多少
      * @return User, 返回查询到的User
+     * hh
      */
     List<User> getAllUerWithLimits(
             @Param("start") long start,
@@ -93,9 +98,22 @@ public interface UserMapper {
 
     /**
      * 查询表内有多少条记录
+     *
      * @param tableName 表名
      * @return 总条数
      */
-    long counter(@Param("tableName") String tableName);
+    long counter(
+            @Param("tableName") String tableName
+    );
+
+    /**
+     * 通过UserName获得单个User
+     *
+     * @param userName User的UserName
+     * @return User, 查询到的User
+     */
+    User getUserByUserName(
+            @Param("username") String userName
+    );
 }
 
